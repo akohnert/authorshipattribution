@@ -1,10 +1,9 @@
 from somajo import SoMaJo
 import spacy
-import en_core_web_sm
 from spacy.tokens import Doc
 from spacy.pipeline import SentenceSegmenter
 
-class LinguisticProcessing:
+class LinguisticPreprocessing:
 
     def __init__(self):
         self.nlp = spacy.load("en_core_web_sm")
@@ -12,24 +11,22 @@ class LinguisticProcessing:
         seg = SentenceSegmenter(self.nlp.vocab, strategy=self.custom_segmenter)
         self.nlp.add_pipe(seg, first=True)
 
-
-
     def tokenizer(self, text):
         tokenizer = SoMaJo("en_PTB")
         tokenized_object = tokenizer.tokenize_text([text])
         sentences = []
         types = []
         for sent in tokenized_object:
+            s = []
             t = []
             for token in sent:
-                sentences.append(token.text)
+                s.append(token.text)
                 t.append(token.token_class)
-            sentences.append('\n')
+            sentences.append(s)
             types.append(t)
         return sentences, types
 
-
-    def spacy(self, text):
+    def pos_lemma(self, text):
         lemma = []
         pos = []
         doc = self.nlp(text, disable=['parser', 'ner'])
@@ -37,9 +34,7 @@ class LinguisticProcessing:
             for token in sent:
                 lemma.append(token.lemma_)
                 pos.append(token.tag_)
-        print(lemma, pos)
-        return lemma, pos
-
+        return pos, lemma
 
     def custom_segmenter(self, doc):
         start = 0
@@ -54,11 +49,12 @@ class LinguisticProcessing:
         if start < len(doc):
             yield doc[start:len(doc)]
 
-
-    def custom_tokenizer(self, text):
+    def custom_tokenizer(self, input):
+        text = []
+        for sentence in self.tokenizer(input)[0]:
+            for token in sentence:
+                text.append(token)
+            text.append('\n')
         if text[-1] == '\n':
             text.pop(-1)
         return Doc(self.nlp.vocab, text)
-
-if __name__ == '__main__':
-    l = LinguisticProcessing('hillary_trump_tweets.csv')

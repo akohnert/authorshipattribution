@@ -1,19 +1,25 @@
-from LinguisticProcessing import LinguisticProcessing
+from LinguisticProcessing import LinguisticPreprocessing
 import pandas as pd
+from collections import Counter
 
 
 class FeatureExtration:
 
     def __init__(self, input):
         self.data = pd.read_csv(input, encoding='utf-8')
-        self.l = LinguisticProcessing()
+        self.ling = LinguisticPreprocessing()
 
-    def linguistic_preprocessing(self):
+    def pos_frequency(self):
         for text in self.data.text:
-            sentences, types = self.l.tokenizer(text)
-            self.l.spacy(sentences)
-            #self.l.spacy(text)
+            c = Counter()
+            pos, lemma = self.ling.pos_lemma(text)
+            for tag in pos:
+                c[tag] += 1
+            for tag in pos:
+                c[tag] = c[tag] / len(pos)
+            print(c)
+
 
 if __name__ == '__main__':
-    fe = FeatureExtration('hillary_trump_tweets.csv')
-    fe.linguistic_preprocessing()
+    f = FeatureExtration('../dev_set.csv')
+    f.pos_frequency()
