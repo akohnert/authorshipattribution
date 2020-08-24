@@ -1,14 +1,10 @@
-from LinguisticPreprocessing import Preprocessing
-import pandas as pd
-from collections import Counter
 from textblob import TextBlob
 
 
-class FeatureExtraction:
+class SemanticFeatures:
 
     def __init__(self):
-        self.ling = Preprocessing()
-
+        pass
 
     def sentiment(self, text):
         analysis = TextBlob(text)
