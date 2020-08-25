@@ -1,15 +1,15 @@
+from collections import Counter
+
 class PunctFeatures:
 
     def __init__(self):
-        self.symbols = ',;.:!?-—'
+        self.symbols = ',;.:!?-'
 
     def feature_occurences(self, text):
-        results = []
+        results = Counter()
         for symbol in self.symbols:
-            n = 0
             for char in text:
                 if symbol == char:
-                    n += 1
-            n = n / len(text)
-            results.append(n)
+                    results[symbol] += 1
+            results[symbol] = results[symbol] / len(text)
         return results

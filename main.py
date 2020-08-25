@@ -1,24 +1,14 @@
-from LinguisticPreprocessing import Preprocessing
-from FeatureExtraction import FeatureExtraction
-from features.character_based_features import CharFeatures
-from features.punctuation_based_features import PunctFeatures
-from features.word_based_features import WordFeatures
-from features.syntactic_features import SyntacticFeatures
-from features.semantic_features import SemanticFeatures
-
 import pandas as pd
+from extract_features import FeatureExtraction
 
 def main():
     data = pd.read_csv('../dev_set.csv')
-    f = FeatureExtraction()
-    l = Preprocessing()
-    cf = CharFeatures()
-    pf = PunctFeatures()
-    wf = WordFeatures()
-    sf = SyntacticFeatures()
-    semf = SemanticFeatures()
-    for text in data.text:
-        pass
+    for i, tweet in data.iterrows():
+        print(i)
+        output = FeatureExtraction(tweet).all_features()
+        #print(tweet.text)
+        #print(output)
+
 
 
 if __name__ == '__main__':

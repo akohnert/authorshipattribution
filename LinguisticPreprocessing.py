@@ -5,11 +5,16 @@ from spacy.pipeline import SentenceSegmenter
 
 class Preprocessing:
 
-    def __init__(self):
+    def __init__(self, text=""):
         self.nlp = spacy.load("en_core_web_sm")
         self.nlp.tokenizer = self.custom_tokenizer
         seg = SentenceSegmenter(self.nlp.vocab, strategy=self.custom_segmenter)
         self.nlp.add_pipe(seg, first=True)
+        if text != "":
+            if isinstance(text, str):
+                self.output = self.pipeline(text)
+            else:
+                raise Exception()
 
     def tokenizer(self, text):
         tokenizer = SoMaJo("en_PTB")
@@ -25,16 +30,6 @@ class Preprocessing:
             sentences.append(s)
             types.append(t)
         return sentences, types
-
-    def pos_lemma(self, text):
-        lemma = []
-        pos = []
-        doc = self.nlp(text, disable=['parser', 'ner'])
-        for sent in doc.sents:
-            for token in sent:
-                lemma.append(token.lemma_)
-                pos.append(token.tag_)
-        return pos, lemma
 
     def custom_segmenter(self, doc):
         start = 0
@@ -58,3 +53,20 @@ class Preprocessing:
         if seg_text[-1] == '\n':
             seg_text.pop(-1)
         return Doc(self.nlp.vocab, seg_text)
+
+    def pipeline(self, text):
+        output = {
+                 'tokens' : [],
+                 'types' : [],
+                 'lemma' : [],
+                 'pos' : [],
+                 'ner' : []
+                 }
+
+        output['tokens'], output['types'] = self.tokenizer(text)
+        doc = self.nlp(text, disable=['parser', 'ner'])
+        for sent in doc.sents:
+            for token in sent:
+                output['lemma'].append(token.lemma_)
+                output['pos'].append(token.tag_)
+        return output

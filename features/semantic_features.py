@@ -1,16 +1,23 @@
 from textblob import TextBlob
 
-
 class SemanticFeatures:
 
     def __init__(self):
-        pass
+        self.functions = {
+                         'sentiment' : self.sentiment
+                         }
+
+    def feature_occurences(self, text):
+        results = {}
+        for func in self.functions:
+            results[func] = self.functions[func](text)
+        return results
 
     def sentiment(self, text):
         analysis = TextBlob(text)
         if analysis.sentiment.polarity > 0:
-            return 'positive'
+            return 1
         elif analysis.sentiment.polarity == 0:
-            return 'neutral'
+            return 0.5
         else:
-            return 'negative'
+            return 0

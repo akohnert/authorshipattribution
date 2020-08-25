@@ -1,21 +1,21 @@
+from collections import Counter
+
 class CharFeatures:
 
     def __init__(self):
-        self.functions = [
-                         str.isalpha,
-                         str.isnumeric,
-                         str.islower,
-                         str.isupper,
-                         str.isspace
-                         ]
+        self.functions = {
+                         'alpha chars' : str.isalpha,
+                         'numeric chars' : str.isnumeric,
+                         'lower chars' : str.islower,
+                         'upper chars': str.isupper, #???
+                         'space chars' : str.isspace
+                         }
 
     def feature_occurences(self, text):
-        results = []
+        results = Counter()
         for func in self.functions:
-            n = 0
             for char in text:
-                if func(char):
-                    n += 1
-            n = n / len(text)
-            results.append(n)
+                if self.functions[func](str(char)):
+                    results[func] += 1
+            results[func] = results[func] / len(text)
         return results

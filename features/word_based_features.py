@@ -1,14 +1,19 @@
+from LinguisticPreprocessing import Preprocessing
+
 class WordFeatures:
 
     def __init__(self):
-        self.functions = [
-                         self.avg_length,
-                         self.emoticons,
-                         self.hashtags,
-                         self.mentions,
-                         ]
+        self.functions = {
+                         'Tokens per Tweet' : self.tokens,
+                         'Avg. token length' : self.avg_token_length,
+                         'Emoticons per Tweet' : self.emoticons,
+                         'Hashtags per Tweet' :self.hashtags,
+                         'Mentions per Tweet' :self.mentions,
+                         'URLs per Tweet' : self.urls
+                         }
 
-    def ignore_segmentation(self, tokens):
+    def get_tokens(self, text):
+        tokens = Preprocessing().tokenizer(text)
         words = []
         types = []
         for i, sentence in enumerate(tokens[0]):
@@ -17,13 +22,15 @@ class WordFeatures:
                 types.append(tokens[1][i][j])
         return words, types
 
-    def feature_occurences(self, tokens):
-        tokens = self.ignore_segmentation(tokens)
-        results = []
+    def feature_occurences(self, text):
+        tokens = self.get_tokens(text)
+        results = {}
         for func in self.functions:
-            results.append(func(tokens))
+            results[func] = self.functions[func](tokens)
         return results
 
+    def tokens(self, tokens):
+        return len(tokens[0])
 
     def emoticons(self, tokens):
         return tokens[1].count('emoticon') / len(tokens[0])
@@ -34,7 +41,10 @@ class WordFeatures:
     def mentions(self, tokens):
         return tokens[1].count('mention') / len(tokens[0])
 
-    def avg_length(self, tokens):
+    def urls(self, tokens):
+        return tokens[1].count('URL') / len(tokens[0])
+
+    def avg_token_length(self, tokens):
         all_token_chars = sum(len(token) for token in tokens[0])
         return all_token_chars / len(tokens[0])
 
