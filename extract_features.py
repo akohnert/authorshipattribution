@@ -5,6 +5,7 @@ from features.word_based_features import WordFeatures
 from features.syntactic_features import SyntacticFeatures
 from features.semantic_features import SemanticFeatures
 from features.meta_based_features import MetaFeatures
+from features.sentence_based_features import SentenceFeatures
 
 
 class FeatureExtraction:
@@ -19,9 +20,10 @@ class FeatureExtraction:
         self.text_features = [
                              CharFeatures,
                              PunctFeatures,
-                             #WordFeatures,
-                             #SyntacticFeatures,
-                             SemanticFeatures
+                             WordFeatures,
+                             SyntacticFeatures,
+                             SemanticFeatures,
+                             SentenceFeatures
                              ]
 
     def linguistic_features(self):

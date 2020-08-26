@@ -15,7 +15,6 @@ class MetaFeatures:
             results[func] = self.functions[func](tweet)
         return results
 
-
     def is_retweet(self, tweet):
         if tweet.is_retweet == True:
             return 1

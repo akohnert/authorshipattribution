@@ -1,4 +1,6 @@
 from LinguisticPreprocessing import Preprocessing
+# Zu aufwändig, nciht jedes Mal Tokenizer rufen
+
 
 class WordFeatures:
 

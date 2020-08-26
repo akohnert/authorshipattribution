@@ -6,6 +6,13 @@ from spacy.pipeline import SentenceSegmenter
 class Preprocessing:
 
     def __init__(self, text=""):
+        self.output = {
+                 'tokens' : [],
+                 'types' : [],
+                 'lemma' : [],
+                 'pos' : []
+                 #'ner' : []
+                 }
         self.nlp = spacy.load("en_core_web_sm")
         self.nlp.tokenizer = self.custom_tokenizer
         seg = SentenceSegmenter(self.nlp.vocab, strategy=self.custom_segmenter)
@@ -29,6 +36,8 @@ class Preprocessing:
                 t.append(token.token_class)
             sentences.append(s)
             types.append(t)
+        self.output['tokens'] = sentences
+        self.output['types'] = types
         return sentences, types
 
     def custom_segmenter(self, doc):
@@ -55,18 +64,9 @@ class Preprocessing:
         return Doc(self.nlp.vocab, seg_text)
 
     def pipeline(self, text):
-        output = {
-                 'tokens' : [],
-                 'types' : [],
-                 'lemma' : [],
-                 'pos' : [],
-                 'ner' : []
-                 }
-
-        output['tokens'], output['types'] = self.tokenizer(text)
         doc = self.nlp(text, disable=['parser', 'ner'])
         for sent in doc.sents:
             for token in sent:
-                output['lemma'].append(token.lemma_)
-                output['pos'].append(token.tag_)
-        return output
+                self.output['lemma'].append(token.lemma_)
+                self.output['pos'].append(token.tag_)
+        return self.output
