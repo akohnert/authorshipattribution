@@ -7,7 +7,8 @@ class WordFeatures:
                          'Emoticons per Tweet': self.emoticons,
                          'Hashtags per Tweet': self.hashtags,
                          'Mentions per Tweet': self.mentions,
-                         'URLs per Tweet': self.urls
+                         'URLs per Tweet': self.urls,
+                         'Symbols per Tweet': self.symbols,
                          }
         self.len_tokens = 0
 
@@ -18,7 +19,8 @@ class WordFeatures:
         return results
 
     def tokens(self, preprocessed_text):
-        self.len_tokens = len(preprocessed_text['tokens'])
+        tokens = [len(sentence) for sentence in preprocessed_text['tokens']]
+        self.len_tokens = sum(tokens)
         return self.len_tokens
 
     def emoticons(self, preprocessed_text):
@@ -33,6 +35,11 @@ class WordFeatures:
     def urls(self, preprocessed_text):
         return preprocessed_text['types'].count('URL') / self.len_tokens
 
+    def symbols(self, preprocessed_text):
+        return preprocessed_text['types'].count('symbol') / self.len_tokens
+
     def avg_token_length(self, preprocessed_text):
-        tok_length = sum(len(token) for token in preprocessed_text['tokens'])
-        return tok_length / self.len_tokens
+        char_sum = 0
+        for sentence in preprocessed_text['tokens']:
+            char_sum += sum(len(token) for token in sentence)
+        return char_sum / self.len_tokens

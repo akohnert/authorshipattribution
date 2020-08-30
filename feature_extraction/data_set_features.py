@@ -15,7 +15,7 @@ class DataSetFeatures:
         pd.set_option('mode.chained_assignment', None)
         self.features['tweet_id'] = [id for id in self.data.id]
         self.features['author'] = [handle for handle in self.data.handle]
-        print('Extracting features from ' + self.filename + '...')
+        print('Extracting features from ' + self.filename + ' ...')
         with tqdm.tqdm(total=self.data.shape[0]) as pbar:
             for i, tweet in self.data.iterrows():
                 f = TweetFeatures(tweet).extract_features()

@@ -16,6 +16,7 @@ class SentenceFeatures:
     def number(self, preprocessed_text):
         return len(preprocessed_text['tokens'])
 
+    # ohne Whitespaces
     def chars_per_sentence(self, preprocessed_text):
         chars = 0
         for sentence in preprocessed_text['tokens']:

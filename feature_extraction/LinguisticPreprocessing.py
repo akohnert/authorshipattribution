@@ -30,13 +30,11 @@ class Preprocessing:
         sentences = []
         types = []
         for sent in tokenized_object:
-            s = []
-            t = []
+            sentence = []
             for token in sent:
-                s.append(token.text)
-                t.append(token.token_class)
-            sentences.append(s)
-            types.append(t)
+                sentence.append(token.text)
+                types.append(token.token_class)
+            sentences.append(sentence)
         self.output['tokens'] = sentences
         self.output['types'] = types
         return sentences, types

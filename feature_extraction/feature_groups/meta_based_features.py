@@ -1,3 +1,6 @@
+import traceback
+
+
 class MetaFeatures:
 
     def __init__(self):
@@ -12,7 +15,10 @@ class MetaFeatures:
     def feature_occurences(self, tweet):
         results = {}
         for func in self.functions:
+            #try:
             results[func] = self.functions[func](tweet)
+            #except AttributeError:
+            #    traceback.print_exc()
         return results
 
     def is_retweet(self, tweet):
