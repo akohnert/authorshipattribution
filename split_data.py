@@ -1,6 +1,7 @@
 import pandas as pd
 import random
 import sys
+from os.path import isdir
 
 
 class Split:
@@ -60,4 +61,6 @@ if __name__ == "__main__":
     output_path = ""
     if len(sys.argv) == 3:
         output_path = sys.argv[2]
+        if not isdir(output_path):
+            mkdir(output_path)
     Split(sys.argv[1]).to_file(dir=output_path)
