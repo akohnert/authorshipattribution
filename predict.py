@@ -1,5 +1,5 @@
-from tweet_features import TweetFeatures
-from data_set_features import DataSetFeatures
+from feature_extraction.tweet_features import TweetFeatures
+from feature_extraction.data_set_features import DataSetFeatures
 import pandas as pd
 from collections import Counter
 
@@ -9,16 +9,16 @@ class PredictAuthor:
         self.test_cases = pd.DataFrame()
         self.predictions = []
 
-    def best_match(self, test_file, gold_file):
+    def best_match(self, test_file, train_file):
         predictions = []
-        gold = pd.read_csv(gold_file)
+        train = pd.read_csv(train_file)
         test_cases = DataSetFeatures(test_file).extract_features()
         for i in test_cases.index:
             D = Counter()
             for feature in test_cases:
                 if feature not in ['author', 'tweet_id']:
-                    for j in gold.index:
-                        D[gold['author'][j]] += abs(test_cases[feature][i]-gold[feature][j])
+                    for j in train.index:
+                        D[train['author'][j]] += abs(test_cases[feature][i]-train[feature][j])
             predictions.append(min(D, key=D.get))
         assert(len(predictions) == test_cases.shape[0])
         self.test_cases = test_cases
@@ -28,7 +28,7 @@ class PredictAuthor:
     def save_predictions(self, filename):
         if self.test_cases.empty:
             raise Exception()
-        self.test_cases.insert(loc=1, column='predicted_author', value=self.predictions)
+        self.test_cases.insert(loc=2, column='predicted_author', value=self.predictions)
         self.test_cases.to_csv(filename)
 
     def evaluate(self):
@@ -43,4 +43,6 @@ class PredictAuthor:
                     matches['total'] += 1
             matches[author] = matches[author] / len(tweets_by_author)
         matches['total'] = matches['total'] / self.test_cases.shape[0]
+        # nur vorerst
+        print(matches)
         return matches

@@ -17,6 +17,7 @@ class Preprocessing:
         self.nlp.tokenizer = self.custom_tokenizer
         seg = SentenceSegmenter(self.nlp.vocab, strategy=self.custom_segmenter)
         self.nlp.add_pipe(seg, first=True)
+        self.nlp.add_pipe(self.nlp.create_pipe('sentencizer'))
         if text != "":
             if isinstance(text, str):
                 self.output = self.pipeline(text)
