@@ -24,5 +24,29 @@ pip install -r requirements.txt
 ---
 ### Benutzung
 
+1. Zuerst die Daten in Trainings-, Test- und Validierungsdaten splitten:
+    ```
+    usage: split_data.py DATA_SET [OUTPUT_PATH]
+    ```
+
+2. Klassifizierer mit ``main.py`` aufrufen und auf den Daten trainieren und/oder testen:
+
+    ```
+    usage: main.py [-h] {train,test} file
+
+    A simple classifier who attributes text to an author.
+
+    positional arguments:
+      {train,test}  either train from a file or make predictions for a file
+      file          file to train or test with (.csv)
+
+    optional arguments:
+      -h, --help    show this help message and exit
+    ```
+
 
 ##### Beispielaufrufe
+
+1. ``python3 split_data.py data/hillary_trump_tweets.csv data/``
+2. ``python3 main.py train data/train_set.csv``
+2. ``python3 main.py test data/test_set.csv``
