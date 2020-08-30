@@ -1,7 +1,7 @@
 import pandas as pd
 import random
 import sys
-from os.path import isdir
+import os
 
 
 class Split:
@@ -24,7 +24,7 @@ class Split:
             z = list(set(y) - set(test[-1]))
             dev.append(z)
 
-        # Testen, ob alle Instanzen richtig verteilt wurden
+        # Testen, ob alle Instanzen enthalten sind
         all_instances = set(train[0]+train[1]+test[0]+test[1]+dev[0]+dev[1])
         assert(len(all_instances) == self.data.shape[0])
 
@@ -61,6 +61,6 @@ if __name__ == "__main__":
     output_path = ""
     if len(sys.argv) == 3:
         output_path = sys.argv[2]
-        if not isdir(output_path):
-            mkdir(output_path)
+        if not os.path.isdir(output_path):
+            os.mkdir(output_path)
     Split(sys.argv[1]).to_file(dir=output_path)

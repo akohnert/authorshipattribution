@@ -1,48 +1,49 @@
-from feature_extraction.tweet_features import TweetFeatures
 from feature_extraction.data_set_features import DataSetFeatures
 import pandas as pd
 from collections import Counter
 
+
 class PredictAuthor:
 
     def __init__(self):
-        self.test_cases = pd.DataFrame()
+        self.data = pd.DataFrame()
+        self.model = pd.DataFrame()
         self.predictions = []
 
-    def best_match(self, test_file, train_file):
-        predictions = []
-        train = pd.read_csv(train_file)
-        test_cases = DataSetFeatures(test_file).extract_features()
-        for i in test_cases.index:
+    def best_match(self, test_file, model):
+        model = pd.read_csv(model)
+        self.data = DataSetFeatures(test_file).extract_features()
+        for i in self.data.index:
             D = Counter()
-            for feature in test_cases:
+            for feature in self.data:
                 if feature not in ['author', 'tweet_id']:
-                    for j in train.index:
-                        D[train['author'][j]] += abs(test_cases[feature][i]-train[feature][j])
-            predictions.append(min(D, key=D.get))
-        assert(len(predictions) == test_cases.shape[0])
-        self.test_cases = test_cases
-        self.predictions  = predictions
-        return test_cases, predictions
+                    for j in model.index:
+                        if feature not in model:
+                            pass
+                        else:
+                            d = self.data[feature][i]-model[feature][j]
+                            D[model['author'][j]] += abs(d)
+            self.predictions.append(min(D, key=D.get))
+        assert(len(self.predictions) == self.data.shape[0])
 
-    def save_predictions(self, filename):
-        if self.test_cases.empty:
-            raise Exception()
-        self.test_cases.insert(loc=2, column='predicted_author', value=self.predictions)
-        self.test_cases.to_csv(filename)
+    def predict(self, test_file, model, filename=""):
+        self.best_match(test_file, model)
+        self.data.insert(loc=2, column='predicted_author',
+                         value=self.predictions)
+        if filename:
+            self.data.to_csv(filename)
+        return self.data, self.predictions
 
     def evaluate(self):
-        if self.test_cases.empty:
+        if self.data.empty:
             raise Exception()
         matches = Counter()
-        for author in self.test_cases.author.unique():
-            tweets_by_author = self.test_cases.index[self.test_cases.author == author].tolist()
-            for i in tweets_by_author:
-                if self.test_cases.author[i] == self.test_cases.predicted_author[i]:
+        for author in self.data.author.unique():
+            tweets = self.data.index[self.datas.author == author].tolist()
+            for i in tweets:
+                if self.data.author[i] == self.data.predicted_author[i]:
                     matches[author] += 1
-                    matches['total'] += 1
-            matches[author] = matches[author] / len(tweets_by_author)
-        matches['total'] = matches['total'] / self.test_cases.shape[0]
-        # nur vorerst
-        print(matches)
+                    matches['Overall Accuracy'] += 1
+            matches[author] = matches[author] / len(tweets)
+        matches['Overall Accuracy'] /= self.data.shape[0]
         return matches
