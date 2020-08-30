@@ -31,16 +31,19 @@ pip install -r requirements.txt
 2. Klassifizierer mit ``main.py`` aufrufen und auf den Daten trainieren und/oder testen:
 
     ```
-    usage: main.py [-h] {train,test} file
+    usage: main.py [-h] [-m [MODEL]] {train,test} file
 
-    A simple classifier who attributes text to an author.
+    A simple classifier that attributes text to an author.
 
     positional arguments:
-      {train,test}  either train from a file or make predictions for a file
-      file          file to train or test with (.csv)
+      {train,test}          train from a file or make predictions for a file
+      file                  file to train or test with (.csv)
 
     optional arguments:
-      -h, --help    show this help message and exit
+      -h, --help            show this help message and exit
+      -m [MODEL], --model [MODEL]
+                            where to save the trained model/which model to use for
+                            testing
     ```
 
 
