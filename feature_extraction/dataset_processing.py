@@ -43,7 +43,7 @@ class DataSetProcessing:
         logging.info('Saving extracted features to {}'.format(filename))
         self.features.to_csv(filename)
 
-    # "Modell" aus Feature-Mittelwerten erstellen
+    # Modell aus Feature-Mittelwerten erstellen
     def aggregate_features(self, filename):
         aggregated_features = pd.DataFrame()
         # für jeden Autor Mittelwert aller Feature bilden

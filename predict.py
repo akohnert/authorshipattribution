@@ -49,7 +49,8 @@ class PredictAuthor:
     # Accuracy für jeden einzelnen Autor als auch insgesamt errechnen
     def evaluate(self):
         if self.data.empty:
-            raise Exception()
+            logging.error('Cannot evaluate empty dataset')
+            raise Exception('Cannot evaluate empty dataset.')
         matches = Counter()
         for author in self.data.author.unique():
             tweets = self.data.index[self.data.author == author].tolist()

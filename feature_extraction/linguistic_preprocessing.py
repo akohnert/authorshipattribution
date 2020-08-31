@@ -34,7 +34,7 @@ class Preprocessing:
                 self.output = self.pipeline(self.text)
             else:
                 logging.error("Expected a <class 'str'> object, but got {}. "
-                              .format(type(self.text))+'Exiting program.')
+                              .format(type(self.text)))
                 raise Exception("Expected a <class 'str'> object, but got {}."
                                 .format(type(self.text)))
         return self.output
@@ -56,8 +56,8 @@ class Preprocessing:
         self.output['types'] = types
         return sentences, types
 
-    # Spacys Satzsegmentierer überschreiben, stattdessen die Segmentierung
-    # von SoMaJo übernehmen
+    # eigenen Satzsegmentierer definieren bzw.
+    # den von SoMaJo übernehmen
     def __custom_segmenter(self, doc):
         start = 0
         sentence_break = False
@@ -71,7 +71,7 @@ class Preprocessing:
         if start < len(doc):
             yield doc[start:len(doc)]
 
-    # Spacy-Tokenisierer mit SoMaJo-Tokenisierer überschreiben
+    # eignen Tokenisierer bzw. SoMaJo-Tokenisierer definieren
     def __custom_tokenizer(self, text):
         seg_text = []
         for sentence in self.tokenizer(text)[0]:
