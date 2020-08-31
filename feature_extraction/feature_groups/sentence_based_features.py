@@ -2,7 +2,7 @@ class SentenceFeatures:
 
     def __init__(self):
         self.functions = {
-                         'Number sentences': self.number,
+                         'number sentences': self.number,
                          'chars per sentence': self.chars_per_sentence,
                          'tokens per sentence': self.tokens_per_sentence
                          }

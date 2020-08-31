@@ -1,8 +1,11 @@
 from feature_extraction.LinguisticPreprocessing import Preprocessing
-from feature_extraction.feature_groups.character_based_features import CharFeatures
-from feature_extraction.feature_groups.punctuation_based_features import PunctFeatures
+from feature_extraction.feature_groups.character_based_features \
+    import CharFeatures
+from feature_extraction.feature_groups.punctuation_based_features \
+    import PunctFeatures
 from feature_extraction.feature_groups.word_based_features import WordFeatures
-from feature_extraction.feature_groups.sentence_based_features import SentenceFeatures
+from feature_extraction.feature_groups.sentence_based_features \
+    import SentenceFeatures
 import unittest
 
 

@@ -1,7 +1,13 @@
-from feature_extraction.data_set_features import DataSetFeatures
+from feature_extraction.dataset_processing import DataSetProcessing
 from predict import PredictAuthor
 import argparse
 import os
+
+
+"""
+Für Benutzeraufrufe: Benutzer kann Argumente übergeben und traineren oder
+testen und sich die Benutzung des Programms erklären  lassen.
+"""
 
 
 def main():
@@ -10,22 +16,28 @@ def main():
     parser.add_argument('mode', help='train from a file or make predictions for \
         a file', choices=('train', 'test'), type=str, action="append")
     parser.add_argument('file', help='file to train or test with (.csv)')
-    parser.add_argument('-m', '--model', nargs='?', help='where to save the \
-        trained model/which model to use for testing', default='aggregated_\
-        features.csv')
+    parser.add_argument('--model', nargs='?', help='where to save the \
+        trained model/which model to use for testing (default is model.csv)',
+        default='model.csv')
+    parser.add_argument('--train_features', nargs='?', help='where to save the \
+        features used for training (default is train_features.csv)', default=
+        'train_features.csv')
+    parser.add_argument('--output', nargs='?', help='where to save the \
+        predictions (default is predictions.csv)', default='predictions.csv')
     args = parser.parse_args()
 
     mode = args.mode[0]
 
     if mode == 'train':
-        f = DataSetFeatures(args.file)
+        f = DataSetProcessing(args.file)
         f.extract_features()
+        f.save_features(args.train_features)
         f.aggregate_features(args.model)
 
     if mode == 'test':
         if os.path.isfile(args.model):
             p = PredictAuthor()
-            p.predict(args.file, args.model, 'predictions.csv')
+            p.predict(args.file, args.model, args.output)
             accuracy = p.evaluate()
             print('\n==== ACCURACY ====')
             for author in accuracy:

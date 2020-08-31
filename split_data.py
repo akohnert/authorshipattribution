@@ -9,9 +9,8 @@ class Split:
         self.data = pd.read_csv(input, encoding='utf-8')
 
     def split_train_test_dev(self):
-        train = []
-        test = []
-        dev = []
+        train, test, dev = [], [], []
+
         # 70% Training, 20% Test, 10% Validierung
         # gleich Anteile von allen Autoren pro Set
         for handle in self.data.handle.unique():
@@ -37,11 +36,11 @@ class Split:
     def to_file(self, train_str="", test_str="", dev_str="", dir=""):
         train, test, dev = self.split_train_test_dev()
         if train_str == "":
-            train_str = 'train_set.csv'
+            train_str = 'train.csv'
         if test_str == "":
-            test_str = 'test_set.csv'
+            test_str = 'test.csv'
         if dev_str == "":
-            dev_str = "dev_set.csv"
+            dev_str = "dev.csv"
         if dir != "" and dir[-1] != "/":
             dir += "/"
 
