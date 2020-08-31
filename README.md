@@ -11,15 +11,15 @@ ankohnert@uni-potsdam.de
 
 Das Programm ordnet einem Text einen Autor aus einer Auswahl von zwei oder mehr Autoren zu.
 
-Im **Trainings-Mode** werden die Features für alle Tweets in den Trainingsdaten extrahiert und für jedes Feature der Mittelwert gebildet. Diese Mittelwerte werden als Modell gespeichert, ebenso werden die extrahierten Features gespeichert.
+Im **Trainings-Mode** werden die Features aller Tweets in den Trainingsdaten extrahiert und für jeden Autor der Mittelwert jedes Features gebildet. Diese Mittelwerte werden als Modell gespeichert, ebenso werden die extrahierten Features gespeichert (beide als csv-Datei).
 
-Im **Test-Mode** werden die Features für alle Tweets in den Testdaten extrahiert und dann für jeden Tweet die Distanz zum Mittelwert für jeden Autor (wie beim Training errechnet) bestimmt. Der Autor mit der niedrigsten Distanz wird als Vorhersage ausgewählt, die extrahierten Features mit tatsächlichem and vorhergesagtem Autor gespeichert und auf dem Bildschirm wird die Präzision (*Accuracy*) der Klassifikation sowohl für die einzelnen Autoren als auch alle Tweets ausgegeben.
+Im **Test-Mode** werden die Features für alle Tweets in den Testdaten extrahiert und dann für jeden Tweet die Distanz zum Mittelwert für jeden Autor (wie beim Training errechnet) bestimmt. Der Autor mit der niedrigsten Distanz wird als Vorhersage ausgewählt, die extrahierten Features mit tatsächlichem and vorhergesagtem Autor gespeichert und es wird die Präzision (*Accuracy*) der Klassifikation sowohl für die einzelnen Autoren als auch für alle Tweets ausgegeben.
 
 ### Daten
 
-Der Klassifizierer trainiert, tested und erzeugt csv-Dateien. \
-Grundlegend nötig sind die Reihen/Attribute ``handle`` (Twitter-Usernamen oder irgendeinen String als Name des Autors), ``text`` (der Text bzw. Tweet) und ``id`` (die Tweet ID bzw. irgendeine Art eindeutige Identifizierung). \
-Für die Meta Features werden außerdem ``is_retweet``, ``is_quote_status`` und ``truncated`` (Boolsche Werte) und ``original_author`` und ``in_reply_to_screen_name`` (Strings) erwartet. Weitere Features basierend auf anderen Attributen können noch hinzugefügt werden.
+Der Klassifizier liest Trainungs- und Testdaten aus csv-Dateien ein und speichert alle Ausgaben auch in diesem Format. \
+Grundlegend nötig sind die Reihen/Attribute ``handle`` (Twitter-Usernamen oder irgendeinen String als Name des Autors), ``text`` (der Text bzw. Tweet als String) und ``id`` (die Tweet ID bzw. irgendeine Art eindeutige Identifizierung). \
+Für die Meta Features werden außerdem ``is_retweet``, ``is_quote_status`` und ``truncated`` (Boolsche Werte) und ``original_author`` und ``in_reply_to_screen_name`` (Strings) erwartet. Weitere Features basierend auf anderen Attributen können noch hinzugefügt werden oder wieder entfernt werden.
 
 ### Installation
 
@@ -45,7 +45,7 @@ pip install -r requirements.txt
     ```
     usage: split_data.py DATA_SET [OUTPUT_PATH]
     ```
-    Erzeugt beim Standardaufruf die drei csv-Dateien ``'train.csv'``, ``'test.csv'`` und ``'dev.csv'``.
+    Erzeugt beim Standardaufruf die drei Dateien ``'train.csv'``, ``'test.csv'`` und ``'dev.csv'``.
 
 2. Klassifizierer mit ``main.py`` aufrufen und auf den Daten trainieren und/oder testen:
 
