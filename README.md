@@ -70,13 +70,15 @@ pip install -r requirements.txt
       --output [OUTPUT]     where to save the predictions (default is
                             predictions.csv)
     ```
-    ##### Beispielaufrufe
-
-     1. ``python3 split_data.py data/hillary_trump_tweets.csv data/``
-     2. ``python3 main.py train data/train.csv``
-     3. ``python3 main.py test data/test.csv``
 
 3. Unittest aufrufen:
     ```
     python3 test_feature_extraction.py
     ```
+    
+##### Beispielaufrufe
+
+  1. ``python3 split_data.py data/hillary_trump_tweets.csv data/``
+  2. ``python3 main.py train data/train.csv``
+  3. ``python3 main.py test data/test.csv``
+  4. ``python3 test_feature_extraction.py``
