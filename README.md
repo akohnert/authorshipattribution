@@ -72,9 +72,9 @@ pip install -r requirements.txt
     ```
     ##### Beispielaufrufe
 
-        1. ``python3 split_data.py data/hillary_trump_tweets.csv data/``
-        2. ``python3 main.py train data/train.csv``
-        2. ``python3 main.py test data/test.csv``
+     1. ``python3 split_data.py data/hillary_trump_tweets.csv data/``
+     2. ``python3 main.py train data/train.csv``
+     3. ``python3 main.py test data/test.csv``
 
 3. Unittest aufrufen:
     ```
