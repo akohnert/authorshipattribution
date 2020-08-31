@@ -45,7 +45,7 @@ pip install -r requirements.txt
     ```
     usage: split_data.py DATA_SET [OUTPUT_PATH]
     ```
-    Erzeugt beim Standardaufruf die drei Dateien ``'train.csv'``, ``'test.csv'`` und ``'dev.csv'``.
+    Erzeugt beim Standardaufruf die drei Dateien ``train.csv``, ``test.csv`` und ``dev.csv``.
 
 2. Klassifizierer mit ``main.py`` aufrufen und auf den Daten trainieren und/oder testen:
 
@@ -70,14 +70,13 @@ pip install -r requirements.txt
       --output [OUTPUT]     where to save the predictions (default is
                             predictions.csv)
     ```
+    ##### Beispielaufrufe
+
+        1. ``python3 split_data.py data/hillary_trump_tweets.csv data/``
+        2. ``python3 main.py train data/train.csv``
+        2. ``python3 main.py test data/test.csv``
 
 3. Unittest aufrufen:
     ```
     python3 test_feature_extraction.py
     ```
-
-##### Beispielaufrufe
-
-1. ``python3 split_data.py data/hillary_trump_tweets.csv data/``
-2. ``python3 main.py train data/train.csv``
-2. ``python3 main.py test data/test.csv``
