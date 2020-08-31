@@ -18,7 +18,7 @@ Im **Test-Mode** werden die Features für alle Tweets in den Testdaten extrahier
 ### Daten
 
 Der Klassifizier liest Trainungs- und Testdaten aus csv-Dateien ein und speichert alle Ausgaben auch in diesem Format. \
-Grundlegend nötig sind die Reihen/Attribute ``handle`` (Twitter-Usernamen oder irgendeinen String als Name des Autors), ``text`` (der Text bzw. Tweet als String) und ``id`` (die Tweet ID bzw. irgendeine Art eindeutige Identifizierung). \
+Grundlegend notwendig sind die Reihen/Attribute ``handle`` (Twitter-Usernamen oder irgendeinen String als Name des Autors), ``text`` (der Text bzw. Tweet als String) und ``id`` (die Tweet ID bzw. irgendeine Art eindeutige Identifizierung). \
 Für die Meta Features werden außerdem ``is_retweet``, ``is_quote_status`` und ``truncated`` (Boolsche Werte) und ``original_author`` und ``in_reply_to_screen_name`` (Strings) erwartet. Weitere Features basierend auf anderen Attributen können noch hinzugefügt werden oder wieder entfernt werden.
 
 ### Installation
