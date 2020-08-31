@@ -1,4 +1,4 @@
-from feature_extraction.LinguisticPreprocessing import Preprocessing
+from feature_extraction.linguistic_preprocessing import Preprocessing
 from feature_extraction.feature_groups.character_based_features \
     import CharFeatures
 from feature_extraction.feature_groups.punctuation_based_features \
@@ -98,7 +98,8 @@ class FeatureExtractionTest(unittest.TestCase):
 
     def test_sentence_features(self):
         for i, tweet in enumerate(self.test_tweets):
-            tweet = Preprocessing(tweet).output
+            preprocessor = Preprocessing(tweet)
+            tweet = preprocessor()
             calculated_features = SentenceFeatures().feature_occurences(tweet)
             for feature in calculated_features:
                 self.assertAlmostEqual(calculated_features[feature],
@@ -106,7 +107,8 @@ class FeatureExtractionTest(unittest.TestCase):
 
     def test_word_features(self):
         for i, tweet in enumerate(self.test_tweets):
-            tweet = Preprocessing(tweet).output
+            preprocessor = Preprocessing(tweet)
+            tweet = preprocessor()
             calculated_features = WordFeatures().feature_occurences(tweet)
             for feature in calculated_features:
                 self.assertAlmostEqual(calculated_features[feature],

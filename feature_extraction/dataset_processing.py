@@ -27,7 +27,8 @@ class DataSetProcessing:
                 # jeden verarbeiteten Tweet loggen
                 logging.info('Processing tweet with ID {}'
                              .format(self.features['tweet_id'][i]))
-                f = TweetFeatures(tweet).extract_features()
+                extract_features = TweetFeatures(tweet)
+                f = extract_features()
                 # jedes Features hinzufügen,
                 # leere bzw. nicht-vorhandene Features ggf. mit 0 auffüllen
                 for key, val in f.items():

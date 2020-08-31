@@ -1,7 +1,8 @@
 from textblob import TextBlob
+from feature_extraction.feature_groups.FeatureBaseClass import Features
 
 
-class SemanticFeatures:
+class SemanticFeatures(Features):
 
     def __init__(self):
         self.functions = {

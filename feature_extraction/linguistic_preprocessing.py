@@ -12,26 +12,31 @@ logging.basicConfig(filename=".log", level=logging.DEBUG, format=
 class Preprocessing:
 
     def __init__(self, text=""):
+        self.text = text
         self.output = {
                       'tokens': [],
                       'types': [],
                       'lemma': [],
                       'pos': []
                       }
+
         # Pipeline definieren
         self.nlp = spacy.load("en_core_web_sm")
-        self.nlp.tokenizer = self.custom_tokenizer
-        seg = SentenceSegmenter(self.nlp.vocab, strategy=self.custom_segmenter)
+        self.nlp.tokenizer = self.__custom_tokenizer
+        seg = SentenceSegmenter(self.nlp.vocab, strategy=self.__custom_segmenter)
         self.nlp.add_pipe(seg, first=True)
-        # Optional bei bei Klassenaufruf sofort Object erzeugen/füllen
-        if text != "":
-            if isinstance(text, str):
-                self.output = self.pipeline(text)
+
+    # Objekt zu Funktion bei Aufruf
+    def __call__(self):
+        if self.text != "":
+            if isinstance(self.text, str):
+                self.output = self.pipeline(self.text)
             else:
                 logging.error("Expected a <class 'str'> object, but got {}. "
-                              .format(type(text))+'Exiting program.')
+                              .format(type(self.text))+'Exiting program.')
                 raise Exception("Expected a <class 'str'> object, but got {}."
-                                .format(type(text)))
+                                .format(type(self.text)))
+        return self.output
 
     # SoMaJo-Tokenisierer aufrufen
     # Zusätzlich zu Token werden Token-Klassen bestimmt
@@ -52,7 +57,7 @@ class Preprocessing:
 
     # Spacys Satzsegmentierer überschreiben, stattdessen die Segmentierung
     # von SoMaJo übernehmen
-    def custom_segmenter(self, doc):
+    def __custom_segmenter(self, doc):
         start = 0
         sentence_break = False
         for token in doc:
@@ -66,7 +71,7 @@ class Preprocessing:
             yield doc[start:len(doc)]
 
     # Spacy-Tokenisierer mit SoMaJo-Tokenisierer überschreiben
-    def custom_tokenizer(self, text):
+    def __custom_tokenizer(self, text):
         seg_text = []
         for sentence in self.tokenizer(text)[0]:
             for token in sentence:

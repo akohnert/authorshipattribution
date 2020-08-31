@@ -31,9 +31,9 @@ class TweetFeatures:
 
         # Features in Gruppen sortieren
         self.feature_groups = [
-                              self.raw_text_features,
-                              self.preprocessed_text_features,
-                              self.meta_features
+                              self.__raw_text_features,
+                              self.__preprocessed_text_features,
+                              self.__meta_features
                               ]
         self.raw_text_features = [
                                  CharFeatures,
@@ -46,26 +46,31 @@ class TweetFeatures:
                                           SentenceFeatures
                                           ]
 
-    def preprocessed_text_features(self):
-        tokens = Preprocessing(self.tweet.text).output
+    # Objekt zu Funktion bei Aufruf
+    def __call__(self):
+        return self.extract_features()
+
+    def __preprocessed_text_features(self):
+        preprocessor = Preprocessing(self.tweet.text)
+        tokens = preprocessor()
         features = {}
         for feature in self.preprocessed_text_features:
             f = feature()
             new_features = f.feature_occurences(tokens)
-            self.overwrite_warning(features, new_features)
+            self.__overwrite_warning(features, new_features)
             features = {**features, **new_features}
         return features
 
-    def raw_text_features(self):
+    def __raw_text_features(self):
         features = {}
         for feature in self.raw_text_features:
             f = feature()
             new_features = f.feature_occurences(self.tweet.text)
-            self.overwrite_warning(features, new_features)
+            self.__overwrite_warning(features, new_features)
             features = {**features, **new_features}
         return features
 
-    def meta_features(self):
+    def __meta_features(self):
         f = MetaFeatures()
         features = f.feature_occurences(self.tweet)
         return features
@@ -74,12 +79,12 @@ class TweetFeatures:
         features = {}
         for group in self.feature_groups:
             new_features = group()
-            self.overwrite_warning(features, new_features)
+            self.__overwrite_warning(features, new_features)
             features = {**features, **new_features}
         return features
 
     # Prüfen, ob ein Feature Name mehrmals vergeben wurde
-    def overwrite_warning(self, features, new_features):
+    def __overwrite_warning(self, features, new_features):
         overlap = new_features.keys() & features.keys()
         if overlap:
             logging.debug('Following features are defined more than once: ' +

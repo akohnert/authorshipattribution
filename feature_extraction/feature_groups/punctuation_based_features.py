@@ -1,7 +1,8 @@
 from collections import Counter
+from feature_extraction.feature_groups.FeatureBaseClass import Features
 
 
-class PunctFeatures:
+class PunctFeatures(Features):
 
     def __init__(self):
         self.symbols = ',;.:!?-'

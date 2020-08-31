@@ -1,4 +1,7 @@
-class SentenceFeatures:
+from feature_extraction.feature_groups.FeatureBaseClass import Features
+
+
+class SentenceFeatures(Features):
 
     def __init__(self):
         self.functions = {

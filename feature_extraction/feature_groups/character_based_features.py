@@ -1,7 +1,8 @@
 from collections import Counter
+from feature_extraction.feature_groups.FeatureBaseClass import Features
 
 
-class CharFeatures:
+class CharFeatures(Features):
 
     def __init__(self):
         self.functions = {
