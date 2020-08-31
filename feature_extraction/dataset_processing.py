@@ -16,7 +16,7 @@ class DataSetProcessing:
         self.features = pd.DataFrame()
 
     def extract_features(self):
-        # SettingWithCopyWarning ausschalten, überschreiben ist gewollt
+        # SettingWithCopyWarning nicht zeigen, überschreiben ist gewollt
         pd.set_option('mode.chained_assignment', None)
         self.features['tweet_id'] = [id for id in self.data.id]
         self.features['author'] = [handle for handle in self.data.handle]
@@ -38,10 +38,12 @@ class DataSetProcessing:
                 pbar.update(1)
         return self.features
 
+    # Extrahierte Features speichern
     def save_features(self, filename):
         logging.info('Saving extracted features to {}'.format(filename))
         self.features.to_csv(filename)
 
+    # "Modell" aus Feature-Mittelwerten erstellen
     def aggregate_features(self, filename):
         aggregated_features = pd.DataFrame()
         # für jeden Autor Mittelwert aller Feature bilden

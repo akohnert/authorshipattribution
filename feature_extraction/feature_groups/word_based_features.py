@@ -16,7 +16,7 @@ class WordFeatures(Features):
                              'numeric tokens': str.isnumeric,
                              'alphabet-only tokens': str.isalpha
                              }
-        self.token_types = ['hashtag', 'URL', 'mention', 'emoticon','symbol']
+        self.token_types = ['hashtag', 'URL', 'mention', 'emoticon', 'symbol']
         self.num_tokens = 0
 
     def feature_occurences(self, preprocessed_text):

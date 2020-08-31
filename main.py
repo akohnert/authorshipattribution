@@ -6,7 +6,7 @@ import os
 
 """
 Für Benutzeraufrufe: Benutzer kann Argumente übergeben und traineren oder
-testen und sich die Benutzung des Programms erklären  lassen.
+testen und sich die Benutzung des Programms erklären lassen.
 """
 
 

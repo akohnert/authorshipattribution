@@ -23,7 +23,8 @@ class Preprocessing:
         # Pipeline definieren
         self.nlp = spacy.load("en_core_web_sm")
         self.nlp.tokenizer = self.__custom_tokenizer
-        seg = SentenceSegmenter(self.nlp.vocab, strategy=self.__custom_segmenter)
+        seg = SentenceSegmenter(self.nlp.vocab,
+                                strategy=self.__custom_segmenter)
         self.nlp.add_pipe(seg, first=True)
 
     # Objekt zu Funktion bei Aufruf

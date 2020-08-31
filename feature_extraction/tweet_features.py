@@ -88,5 +88,5 @@ class TweetFeatures:
         overlap = new_features.keys() & features.keys()
         if overlap:
             logging.debug('Following features are defined more than once: ' +
-                            str([i for i in overlap]))
+                          str([i for i in overlap]))
             logging.warning('Overwriting non-unique features')

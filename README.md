@@ -17,7 +17,9 @@ Im **Test-Mode** werden die Features für alle Tweets in den Testdaten extrahier
 
 ### Daten
 
-TODO: welche Attribute sind notwendig etc, wie kann man den Datensatz austauschen (oder im Report?)
+Der Klassifizierer trainiert, tested und erzeugt csv-Dateien. \
+Grundlegend nötig sind die Reihen/Attribute ``handle`` (Twitter-Usernamen oder irgendeinen String als Name des Autors), ``text`` (der Text bzw. Tweet) und ``id`` (die Tweet ID bzw. irgendeine Art eindeutige Identifizierung). \
+Für die Meta Features werden außerdem ``is_retweet``, ``is_quote_status`` und ``truncated`` (Boolsche Werte) und ``original_author`` und ``in_reply_to_screen_name`` (Strings) erwartet. Weitere Features basierend auf anderen Attributen können noch hinzugefügt werden.
 
 ### Installation
 
@@ -32,7 +34,6 @@ python3 -m venv venv
 pip install -r requirements.txt
 ````
 
----
 ##### 2. Benötigte Tools und Daten ggf. herunterladen
 
 * English Spacy Model: ``python3 -m spacy download en_core_web_sm``
@@ -68,10 +69,15 @@ pip install -r requirements.txt
                             is train_features.csv)
       --output [OUTPUT]     where to save the predictions (default is
                             predictions.csv)
+    ```
 
+3. Unittest aufrufen:
+    ```
+    python3 test_feature_extraction.py
+    ```
 
 ##### Beispielaufrufe
 
 1. ``python3 split_data.py data/hillary_trump_tweets.csv data/``
-2. ``python3 main.py train data/train_set.csv``
-2. ``python3 main.py test data/test_set.csv``
+2. ``python3 main.py train data/train.csv``
+2. ``python3 main.py test data/test.csv``

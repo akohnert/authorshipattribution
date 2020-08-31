@@ -27,8 +27,9 @@ class PredictAuthor:
                         # Wenn Testdaten Features enthalten, die nicht im
                         # Modell sind, werden sie ignoriert
                         if feature not in model:
-                            logging.warning('Feature "{}" not in model.'.
-                            format(feature)+' Feature is ignored.')
+                            logging.warning('Feature "{}" not in model.'
+                                            .format(feature) +
+                                            ' Feature is ignored.')
                         else:
                             d = self.data[feature][i]-model[feature][j]
                             D[model['author'][j]] += abs(d)
