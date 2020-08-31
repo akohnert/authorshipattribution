@@ -1,0 +1,34 @@
+Angelina-Sophia Hauswald
+Matrikel-Nr.: 785803
+
+Review zum Projekt athorshipattribution
+_______________________________________
+
+main.py:
++ Mir hat hier gut gefallen, dass beim Aufruf kurze Erklärungen gemacht werden, um was für ein Programm es sich handelt und was für Argumente dem Programm übergeben werden können/sollen
++ sonst ist mir nichts Negatives aufgefallen
+
+FEATURE_EXTRACTION:
++ Allgemein zur Feature Extraction gefällt mir, dass du die verschiedenen Features, die du aus den Tweets ziehen möchtest, sinnvoll in thematisch zueinander passende Klassen unterteilt hast, dazu zählt auch, dass mir ebenso positiv aufgefallen ist, dass die Dateinamen für die Klassen in LinguisticPreprocessing.py und tweet_features.py gut gewählt wurden, da man so genau weiß, um welche Gruppe von Features sich die Klasse kümmern wird, im Vergleich dazu finde ich data_set_features.py weniger aussagekräftig
+
+data_set_features.py:
+- Hier hätte ich es für ziemlich sinnvoll gehalten, wenn du ein paar Zeilen im Code hättest kommentiert, in den Dateien LinguisticPreProcessing.py und tweet_features.py sind die Funktionen so kurz und schlank gehalten, dass man sie versteht ohne Kommentare im Code hinzufügen zu müssen, vermutlich würden sie dort sogar eher den Lesefluss unterbrechen, aber in der Datei sind die Funktionen extract_features() und aggregate_features(filename) nicht sofort so einsichtig
+
+split_data.py:
++ Ich finde hier auch wieder schön, dass man kurz gesagt bekommt, wenn man die Datei aufruft, was mit übergeben werden muss, um die Daten sinnvoll aufzuteilen
++ Ich finde; in der Klasse auch schon besser, dass kurze Kommentare hinzugefügt wurden, hilft mir, wie gesagt, einfach beim schnelleren Verständnis
+
+readme.md
++ Was ich bisher drin sehe finde ich gut. 
+- Ich weiß nicht, ob du deine Dokumentation woanders noch einmal genauer vornimmst und du das dann dort reinschreiben möchtest, aber ansonsten ist es vielleicht nicht schlecht, wenn du den Ablauf von deinem Programm kurz erläuterst, d.h. welche Schritte er im Training durchgeht und wie letztendlich klassifiziert wird, natürlich nicht im Detail, nur um einen Einblick zu bekommen, wie gearbeitet wird.
+
+
+GESAMTEINDRUCK
+_______________________________________
+Zusammenfassend kann ich sagen, dass mir dein Projekt gut gefällt und ich kaum Negatives zu bemängeln habe. Deine Aufteilung in Klassen ist sinnvol, die Funktionen haben allesamt eine angemessene Größe, nichts wirkt zu überladen und man kann immer alles auf einen Blick gut einsehen, ohne dass man unnötig horizontal hin und her scrollen müsste. Auch innerhalb der Funktionen die Strukturierung in zusammengehörige Blöcke, fördern die Lesbarkeit und sind gut gelungen, falls eine Funktion doch umfangreicher wurde. Deiner guten Aufteilung in Funktionen ist wohl auch dafür verantwortlich, dass du keinerlei unnötiger Code-Duplizierung hast.
+
+Das Einzige, was mir negatives einfällt ist, dass du kaum bis gar nicht Kommentare in deinem Code hattest, was natürlich bei kleinen Funktionen kein Problem ist, aber an manchen Stellen wär es doch hilfreich gewesen. Es würde in meinen Augen schon reichen, wenn man über die Funktionen ein paar Worte darüber sagt, was die Funktion bewirkt, welchen Input sie bekommt und was sie zurückgibt.
+Du hattest bisher noch keine Unit-Tests, deshalb kann ich hierzu noch nichts sagen.
+Was ich bei dir auch noch nicht gesehen habe, war die Encapsulation. Der Benutzer kann noch auf alle Funktionen zugreifen, eventuell muss und soll er über die genaue Implementierung aber gar nichts erfahren, es wäre also gut, wenn du dir noch einmal einen Kopf machen könntest, welche Funktionen der Benutzer am Ende verwenden soll/darf. Die Funktionen, die der Benutzer verwenden soll, um mit dem Programm zu arbeiten, könntest du dann in deiner readme vielleicht noch einmal genauer erklären, damit er nicht erst im Code danach suchen und sich die Funktionalität selbst erschließen muss.
+
+Eine Anmerkung habe ich noch, wobei ich nicht ganz sicher bin, ob mir das eventuell irgendwie untergegangen ist. Ich habe nur daran gedacht, weil ich bei meinem Projekt erst vor kurzem darüber nachgedacht habe, was passiert denn, wenn der Klassifizierer mehrere Autoren bestimmt, die den gleichen minimalsten Abstand berechnet bekommen haben, gibst du dann alle möglichen Autoren aus? Oder bestimmst du einfach einen der möglichen Autoren? Nur falls du noch nicht drüber nachgedacht hast und das noch mit einfließen lassen möchtest.
